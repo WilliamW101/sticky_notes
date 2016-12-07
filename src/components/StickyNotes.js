@@ -10,6 +10,8 @@ class StickyNotes extends Component {
 
     this.addNote = this.addNote.bind(this);
     this.displayNotes = this.displayNotes.bind(this);
+    this.editNote = this.editNote.bind(this);
+    this.deleteNote = this.deleteNote.bind(this);
   }
 
   addNote(title, body, author, color) {
@@ -17,12 +19,36 @@ class StickyNotes extends Component {
     this.setState({ notes: [note, ...this.state.notes]});
   }
 
+  deleteNote(index) {
+    if(confirm('Really Delete Item?')) {
+      let notes = this.state.notes;
+        notes: [notes.splice(index, 1)]
+        this.setState({ notes });
+    }
+  }
+
+  editNote(index, titleValue, bodyValue, authorValue, colorValue) {
+    let notes = this.state.notes;
+      notes[index].title = titleValue;
+      notes[index].body = bodyValue;
+      notes[index].author = authorValue;
+      notes[index].color = colorValue
+      this.setState({ notes })
+  }
+
   displayNotes() {
     let notes = this.state.notes;
     if(notes.length) {
       // loop the notes and render a note component
-      return notes.map( (note, index) => {
-        return(<Note key={index} note={note} />)      // fancy way to get note.title, note.body, note.author, note.color
+      return notes.map( (note, index) => { // fancy way to get note.title, note.body, note.author, note.color
+        return(<Note
+            key={index}
+            note={note}
+            index={index}
+            deleteNote={this.deleteNote}
+            editNote={this.editNote}
+          />
+        );
       });
     }else{
       return(<h4> No Notes, Please Add One! </h4>);
