@@ -63,32 +63,14 @@ class Note extends Component {
             <input type="color" ref='editNoteColor' defaultValue={note.color} required />
           </div>
           <div className="card-action">
-            <button onClick={this.toggleEdit}> Cancel </button>
-            <button onClick={this.handleEdit}> Save </button>
+            <button className='btn white black-text' onClick={this.toggleEdit}> Cancel </button>
+            <button className='btn white black-text' onClick={this.handleEdit}> Save </button>
           </div>
         </div>
       </div>
 		);
 	}
 
-  display() {
-  let note = this.props.note;
-  return(
-    <div className="col s12 m4">
-      <div className="card" style={{ backgroundColor: note.color }}>
-        <div className="card-content white-text">
-          <span className="card-title">{note.title}</span>
-          <p>{note.body}</p>
-          <i>Author: {note.author}</i>
-        </div>
-        <div className="card-action">
-          <a onClick={this.toggleEdit}>Edit</a>
-          <a onClick={() => this.props.deleteNote(this.props.index)}>Delete</a>
-        </div>
-      </div>
-    </div>
-  );
-}
 
   render() {
     if(this.state.edit) {
